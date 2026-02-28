@@ -44,22 +44,22 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         lblSuperAdmin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblSuperAdmin.setText("Bienvenido Super Aministrador: ");
 
-        btnRegistrarSucursal.setText("1");
+        btnRegistrarSucursal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/comprador-de-tienda.png"))); // NOI18N
 
-        btnModificarSucursal.setText("2");
+        btnModificarSucursal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda-alt.png"))); // NOI18N
         btnModificarSucursal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarSucursalActionPerformed(evt);
             }
         });
 
-        btnRegistrarJugador.setText("3");
+        btnRegistrarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jugador.png"))); // NOI18N
 
-        btnGlobales.setText("4");
+        btnGlobales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-alt.png"))); // NOI18N
 
-        btnRanking.setText("5");
+        btnRanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estrella-de-ranking.png"))); // NOI18N
 
-        btnTiempoPreparacion.setText("6");
+        btnTiempoPreparacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/herramientas.png"))); // NOI18N
 
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +80,7 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
 
         jLabel7.setText("Tiempo de Preparacion");
 
+        btnRegistrarSuperAdmin.setForeground(new java.awt.Color(255, 0, 51));
         btnRegistrarSuperAdmin.setText("7");
 
         jLabel8.setText("Registrar Super Administrador");
@@ -95,49 +96,47 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
                         .addComponent(btnCerrarSesion)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(60, 60, 60)
-                                        .addComponent(btnGlobales)
-                                        .addGap(177, 177, 177)
-                                        .addComponent(btnRanking))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(112, 112, 112)
-                                        .addComponent(btnRegistrarSucursal)))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(226, 226, 226)
-                                        .addComponent(btnTiempoPreparacion)
-                                        .addGap(0, 68, Short.MAX_VALUE))
+                                        .addGap(70, 70, 70)
+                                        .addComponent(btnRegistrarSucursal))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(39, 39, 39)
+                                        .addComponent(btnGlobales)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel7)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(btnModificarSucursal)
-                                                .addGap(158, 158, 158)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel4)
                                                 .addComponent(btnRegistrarJugador)))
-                                        .addGap(26, 26, 26))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSuperAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(49, 49, 49))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnRanking)
+                                        .addGap(146, 146, 146)
+                                        .addComponent(btnTiempoPreparacion)
+                                        .addGap(61, 61, 61))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblSuperAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(31, 31, 31))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel5))
+                                        .addGap(41, 41, 41)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addGap(56, 56, 56)
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel3)
-                                                .addGap(61, 61, 61)))
-                                        .addComponent(jLabel4)))))
-                        .addGap(31, 31, 31))
+                                                .addGap(39, 39, 39)
+                                                .addComponent(btnModificarSucursal)))))
+                                .addGap(259, 259, 259))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,29 +158,32 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegistrarSucursal)
-                    .addComponent(btnModificarSucursal)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnRegistrarSucursal)
+                            .addComponent(btnModificarSucursal, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel5))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(6, 6, 6))))
                     .addComponent(btnRegistrarJugador))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGlobales)
-                            .addComponent(btnRanking)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnTiempoPreparacion)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(btnGlobales)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnTiempoPreparacion)
+                            .addComponent(btnRanking))
+                        .addGap(18, 18, 18)))
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarSuperAdmin)
