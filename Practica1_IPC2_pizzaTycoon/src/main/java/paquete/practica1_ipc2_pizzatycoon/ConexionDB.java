@@ -6,7 +6,7 @@ import java.sql.*;
 public class ConexionDB {
     
     private Connection conn;
-    private String URL = "jdbc:mysql://localhost:3306/game_eshop";
+    private String URL = "jdbc:mysql://localhost:3306/pizza_express_tycoon";
     private String USUARIO = "root";
     private String CONTRASENNA = "julioadmin";
     
