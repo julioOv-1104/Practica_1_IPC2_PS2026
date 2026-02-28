@@ -62,22 +62,22 @@ public class UsuarioDAO extends DAO {
         
         switch (nuevo.getRol()) {
                     case JUGADOR:
-                        VistaJugador juga = new VistaJugador();
+                        VistaJugador juga = new VistaJugador(nuevo);
                         juga.setVisible(true);
                         break;
                     case ADMIN_TIENDA:
-                        VistaAdmin admin = new VistaAdmin();
+                        VistaAdmin admin = new VistaAdmin(nuevo);
                         admin.setVisible(true);
                         break;
                     case SUPER_ADMIN:
-                        VistaSuperAdmin sup = new VistaSuperAdmin();
+                        VistaSuperAdmin sup = new VistaSuperAdmin(nuevo);
                         sup.setVisible(true);
                         break;
 
                 }
         frame.setVisible(false);
     
-        System.out.println("USUARIO LOGUEADO: "+nuevo.getNombre() + ", rol: "+nuevo.getRol());
+        System.out.println("USUARIO LOGUEADO: "+nuevo.getNombre() + ", rol: "+nuevo.getRol()+ ", sucursal: "+nuevo.getId_sucursal());
         
     }
 

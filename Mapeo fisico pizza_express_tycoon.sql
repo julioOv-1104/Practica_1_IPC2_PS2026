@@ -17,7 +17,7 @@ CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     id_rol INT NOT NULL,
-    id_sucursal INT NOT NULL,
+    id_sucursal INT,
 
     CONSTRAINT fk_usuario_rol FOREIGN KEY (id_rol) REFERENCES rol(id_rol),
 
@@ -26,7 +26,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE producto (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_producto VARCHAR(100) NOT NULL
+    nombre_producto VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE sucursal_producto (
@@ -116,3 +116,12 @@ INSERT INTO config_nivel (numero_nivel, tiempo_base) VALUES
 (1, 60),
 (2, 50),
 (3, 40); 
+
+-- Datos de prueba para el funcionamiento basico de la base de datos
+
+INSERT INTO sucursal (nombre_sucursal) VALUES ('Sucursal Xela');
+
+INSERT INTO usuario (nombre, id_rol, id_sucursal) VALUES 
+('Julio',1, null),
+('Allan',2,1),
+('Ovalle',3,null);
