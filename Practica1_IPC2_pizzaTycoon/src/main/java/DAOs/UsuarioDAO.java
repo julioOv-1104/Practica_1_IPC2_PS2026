@@ -3,11 +3,12 @@ package DAOs;
 import Modelos.*;
 import java.sql.*;
 import InterfazGrafica.*;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import paquete.practica1_ipc2_pizzatycoon.ConexionDB;
 
-public class UsuarioDAO extends DAO {
+public class UsuarioDAO {
 
     private ConexionDB conexion = new ConexionDB();
 
@@ -54,11 +55,12 @@ public class UsuarioDAO extends DAO {
             }
 
         } catch (Exception e) {
+            System.out.println("ERROR AL LOGUEAR USUARIO");
             e.printStackTrace();
         }
     }
     
-    private void mostrarVista(Usuario nuevo, JFrame frame){
+    private void mostrarVista(Usuario nuevo, JFrame frame){//muestra la vista dependiendo del rol
         
         switch (nuevo.getRol()) {
                     case JUGADOR:
@@ -78,6 +80,35 @@ public class UsuarioDAO extends DAO {
         frame.setVisible(false);
     
         System.out.println("USUARIO LOGUEADO: "+nuevo.getNombre() + ", rol: "+nuevo.getRol()+ ", sucursal: "+nuevo.getId_sucursal());
+        
+    }
+    
+    public ArrayList<Producto> obtenerProductos(){
+        
+        ArrayList<Producto> productos = new ArrayList<>();
+    
+        try (Connection conn = conexion.conectar()) {
+            
+
+            String sql = "SELECT * FROM producto";
+            PreparedStatement stm = conn.prepareStatement(sql);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {//si si encuentra algo
+               
+                Producto nuevo = new Producto(rs.getInt("id_producto"),rs.getString("nombre_producto"));
+                productos.add(nuevo);
+                //guarda los productos en una lista
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL OBTENER PRODUCTOS");
+            e.printStackTrace();
+        }
+        
+        return productos;
         
     }
 

@@ -4,11 +4,11 @@ import Modelos.*;
 
 public class VistaAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VistaAdmin
-     */
+    private Usuario activo;
+    
     public VistaAdmin(Usuario activo) {
         initComponents();
+        this.activo = activo;
         this.lblAdmin.setText("Bienvenido Administrador: "+ activo.getNombre());
     }
 
@@ -39,6 +39,11 @@ public class VistaAdmin extends javax.swing.JFrame {
         lblAdmin.setText("Bienvenido Administrador: ");
 
         btnCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paleta.png"))); // NOI18N
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/herramientas.png"))); // NOI18N
 
@@ -148,6 +153,12 @@ public class VistaAdmin extends javax.swing.JFrame {
         LoginJF login = new LoginJF();
         login.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        this.setVisible(false);
+        CrearProductoJF crear = new CrearProductoJF(activo);
+        crear.setVisible(true);
+    }//GEN-LAST:event_btnCrearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
