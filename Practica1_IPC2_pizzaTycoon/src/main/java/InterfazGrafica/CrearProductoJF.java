@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 public class CrearProductoJF extends javax.swing.JFrame {
 
     private Usuario activo;
-    private UsuarioDAO usuarioDao = new UsuarioDAO();
     private ProductoDAO productoDao = new ProductoDAO();
     private ArrayList<Producto> productos = new ArrayList<>();
 
@@ -179,7 +178,7 @@ public class CrearProductoJF extends javax.swing.JFrame {
     
     private void enlistarProductos() {
         
-        productos = usuarioDao.obtenerProductos();//obtiene los productos de la DB
+        productos = productoDao.obtenerProductos();//obtiene los productos de la DB
 
         DefaultListModel<String> modelo = new DefaultListModel<>();
 

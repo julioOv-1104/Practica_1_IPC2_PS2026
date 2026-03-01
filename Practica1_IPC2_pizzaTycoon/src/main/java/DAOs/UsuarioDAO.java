@@ -83,33 +83,6 @@ public class UsuarioDAO {
         
     }
     
-    public ArrayList<Producto> obtenerProductos(){
-        
-        ArrayList<Producto> productos = new ArrayList<>();
     
-        try (Connection conn = conexion.conectar()) {
-            
-
-            String sql = "SELECT * FROM producto";
-            PreparedStatement stm = conn.prepareStatement(sql);
-
-            ResultSet rs = stm.executeQuery();
-
-            while (rs.next()) {//si si encuentra algo
-               
-                Producto nuevo = new Producto(rs.getInt("id_producto"),rs.getString("nombre_producto"));
-                productos.add(nuevo);
-                //guarda los productos en una lista
-
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR AL OBTENER PRODUCTOS");
-            e.printStackTrace();
-        }
-        
-        return productos;
-        
-    }
 
 }

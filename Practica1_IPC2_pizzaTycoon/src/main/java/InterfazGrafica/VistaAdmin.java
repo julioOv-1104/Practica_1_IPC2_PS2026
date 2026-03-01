@@ -46,6 +46,11 @@ public class VistaAdmin extends javax.swing.JFrame {
         });
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/herramientas.png"))); // NOI18N
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-alt.png"))); // NOI18N
 
@@ -159,6 +164,12 @@ public class VistaAdmin extends javax.swing.JFrame {
         CrearProductoJF crear = new CrearProductoJF(activo);
         crear.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        this.setVisible(false);
+        ModificarProductoJF modificar = new ModificarProductoJF(activo);
+        modificar.setVisible(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
