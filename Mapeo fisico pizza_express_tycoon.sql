@@ -10,12 +10,12 @@ CREATE TABLE rol (
 
 CREATE TABLE sucursal (
     id_sucursal INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_sucursal VARCHAR(100) NOT NULL
+    nombre_sucursal VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
     id_rol INT NOT NULL,
     id_sucursal INT,
 

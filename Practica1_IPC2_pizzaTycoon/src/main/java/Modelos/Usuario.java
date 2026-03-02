@@ -8,6 +8,16 @@ public class Usuario {
     private int id;
     private int id_sucursal;
 
+    public Usuario(int id, String nombre) {
+        this.nombre = nombre;
+        this.id = id;
+    }
+
+    public Usuario() {
+    }
+    
+    
+
     public String getNombre() {
         return nombre;
     }

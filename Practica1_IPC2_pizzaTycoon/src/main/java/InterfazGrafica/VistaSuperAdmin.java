@@ -4,11 +4,11 @@ import Modelos.*;
 
 public class VistaSuperAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VistaSuperAdmin
-     */
+    private Usuario activo;
+    
     public VistaSuperAdmin(Usuario activo) {
         initComponents();
+        this.activo = activo;
         this.lblSuperAdmin.setText("Bienvenido Super Administrador: " + activo.getNombre());
     }
 
@@ -45,6 +45,11 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         lblSuperAdmin.setText("Bienvenido Super Aministrador: ");
 
         btnRegistrarSucursal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/comprador-de-tienda.png"))); // NOI18N
+        btnRegistrarSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarSucursalActionPerformed(evt);
+            }
+        });
 
         btnModificarSucursal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda-alt.png"))); // NOI18N
         btnModificarSucursal.addActionListener(new java.awt.event.ActionListener() {
@@ -215,6 +220,12 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         LoginJF login = new LoginJF();
         login.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnRegistrarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSucursalActionPerformed
+        this.setVisible(false);
+        RegistrarSucursalAdmin sucursalNueva = new RegistrarSucursalAdmin(activo);
+        sucursalNueva.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarSucursalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

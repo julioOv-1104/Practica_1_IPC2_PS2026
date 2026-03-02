@@ -196,6 +196,9 @@
               <Image iconType="3" name="/Imagenes/comprador-de-tienda.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarSucursalActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnModificarSucursal">
           <Properties>

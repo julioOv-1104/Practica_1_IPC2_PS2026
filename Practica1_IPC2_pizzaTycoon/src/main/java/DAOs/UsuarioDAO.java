@@ -11,6 +11,9 @@ import paquete.practica1_ipc2_pizzatycoon.ConexionDB;
 public class UsuarioDAO {
 
     private ConexionDB conexion = new ConexionDB();
+    private final int ROL_JUGADOR = 1;
+    private final int ROL_ADMIN = 2;
+    private final int ROL_SUPER_ADMIN = 3;
 
     public void login(String nombre, int id, JFrame frame) {
 
@@ -81,6 +84,54 @@ public class UsuarioDAO {
     
         System.out.println("USUARIO LOGUEADO: "+nuevo.getNombre() + ", rol: "+nuevo.getRol()+ ", sucursal: "+nuevo.getId_sucursal());
         
+    }
+    
+    public ArrayList<Usuario> obtenerUsuarios(){
+        
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+    
+        try (Connection conn = conexion.conectar()) {
+            
+
+            String sql = "SELECT * FROM usuario";
+            PreparedStatement stm = conn.prepareStatement(sql);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {//si si encuentra algo
+               
+                Usuario nuevo = new Usuario(rs.getInt("id_usuario"),rs.getString("nombre"));
+                usuarios.add(nuevo);
+                //guarda los usuarioa en una lista
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL OBTENER USUARIOS");
+            e.printStackTrace();
+        }
+        
+        return usuarios;
+        
+    }
+    
+     public boolean crearAdmin(String nombre) {
+
+        try (Connection conn = conexion.conectar()) {
+
+            String sql = "INSERT INTO usuario (nombre, id_rol) VALUES (?,?)";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, nombre);
+            stm.setInt(2, ROL_ADMIN);
+
+            stm.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("ERROR AL CREAR NUEVO ADMIN");
+            e.getMessage();
+        }
+        return false;
     }
     
     
