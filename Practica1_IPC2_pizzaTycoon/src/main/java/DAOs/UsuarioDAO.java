@@ -125,20 +125,35 @@ public class UsuarioDAO {
 
     }
 
-    public boolean crearAdmin(String nombre) {
+    public boolean crearUsuario(String nombre, int parametro, int id_sucursal) {
 
         try (Connection conn = conexion.conectar()) {
 
-            String sql = "INSERT INTO usuario (nombre, id_rol) VALUES (?,?)";
+            String sql = "INSERT INTO usuario (nombre, id_rol) VALUES (?,?)";//para crear un admin
+            String sql2 = "INSERT INTO usuario (nombre, id_rol, id_sucursal) VALUES (?,?,?)";//para crear un jugador 
+
             PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, nombre);
-            stm.setInt(2, ROL_ADMIN);
+
+            switch (parametro) {
+                case 1:
+                    stm = conn.prepareStatement(sql2);
+                    stm.setString(1, nombre);
+                    stm.setInt(2, ROL_JUGADOR);
+                    stm.setInt(3, id_sucursal);
+                    break;
+
+                case 2:
+                    stm = conn.prepareStatement(sql);
+                    stm.setString(1, nombre);
+                    stm.setInt(2, ROL_ADMIN);
+                    break;
+            }
 
             stm.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            System.out.println("ERROR AL CREAR NUEVO ADMIN");
+            System.out.println("ERROR AL CREAR NUEVO USUARIO");
             e.getMessage();
         }
         return false;

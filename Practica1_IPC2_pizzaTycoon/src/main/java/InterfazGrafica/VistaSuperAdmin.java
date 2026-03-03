@@ -59,6 +59,11 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         });
 
         btnRegistrarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jugador.png"))); // NOI18N
+        btnRegistrarJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarJugadorActionPerformed(evt);
+            }
+        });
 
         btnGlobales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-alt.png"))); // NOI18N
 
@@ -228,6 +233,12 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         RegistrarSucursalAdmin sucursalNueva = new RegistrarSucursalAdmin(activo);
         sucursalNueva.setVisible(true);
     }//GEN-LAST:event_btnRegistrarSucursalActionPerformed
+
+    private void btnRegistrarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarJugadorActionPerformed
+        this.setVisible(false);
+        RegistrarJugadorJF jugadorNuevo = new RegistrarJugadorJF(activo);
+        jugadorNuevo.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarJugadorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

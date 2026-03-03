@@ -183,59 +183,58 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdminActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+
         this.setVisible(false);
         VistaSuperAdmin superAdmin = new VistaSuperAdmin(activo);
         superAdmin.setVisible(true);
-        
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    
-    private void crearAdmin(){
-    
+    private void crearAdmin() {
+
         if (txtNombreAdmin.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Ingrese el nombre del nuevo admin ", "ADVERTENSIA", 
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre del nuevo admin ", "ADVERTENSIA",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
-            
+
             String nombre = txtNombreAdmin.getText().trim();
-            if (usuarioDao.crearAdmin(nombre)) {
+            // "2" es el parametro que se refiere al tipo de rol y 0 a la sucursal
+            if (usuarioDao.crearUsuario(nombre, 2, 0)) {
                 //si sale todo bien
-                JOptionPane.showMessageDialog(null,"Administrador de tienda creado con exito ", "Todo bien", 
-                    JOptionPane.PLAIN_MESSAGE);
-            }else{
-            JOptionPane.showMessageDialog(null,"Este usuario ya existe ", "ERROR", 
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Administrador de tienda creado con exito ", "Todo bien",
+                        JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Este usuario ya existe ", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        
+
         }
-        
+
         enlistarUsuariosSucursales();
     }
-    
-    
-    private void crearSucursal(){
-    
+
+    private void crearSucursal() {
+
         if (txtNombreSucursal.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Ingrese el nombre de la nueva sucursal ", "ADVERTENSIA", 
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre de la nueva sucursal ", "ADVERTENSIA",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
-            
+
             String nombre = txtNombreSucursal.getText().trim();
             if (sucursalDao.crearSucursal(nombre)) {
                 //si sale todo bien
-                JOptionPane.showMessageDialog(null,"Sucursal creada con exito ", "Todo bien", 
-                    JOptionPane.PLAIN_MESSAGE);
-            }else{
-            JOptionPane.showMessageDialog(null,"Esta sucursal ya existe ", "ERROR", 
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sucursal creada con exito ", "Todo bien",
+                        JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Esta sucursal ya existe ", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        
+
         }
-        
+
         enlistarUsuariosSucursales();
     }
-    
+
     private void enlistarUsuariosSucursales() {
 
         usuarios = usuarioDao.obtenerUsuarios(1);//obtiene los usuarios de la DB

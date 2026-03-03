@@ -216,6 +216,9 @@
               <Image iconType="3" name="/Imagenes/jugador.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarJugadorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnGlobales">
           <Properties>
