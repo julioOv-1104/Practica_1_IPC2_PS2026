@@ -54,8 +54,13 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
         jScrollPane1.setViewportView(JListSucursales);
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Sucursales y usuarios existentes:");
 
         jLabel2.setText("Sucursales:");
@@ -64,6 +69,7 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(JListUsuarios);
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Nueva Sucursal:");
 
         jLabel5.setText("Nombre:");
@@ -75,6 +81,7 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Nuevo Administrador:");
 
         jLabel7.setText("Nombre:");
@@ -113,15 +120,15 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(txtNombreSucursal)
                         .addComponent(btnSucursal)
-                        .addComponent(txtNombreAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
+                        .addComponent(txtNombreAdmin)))
                 .addGap(174, 174, 174))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -148,7 +155,7 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
                 .addComponent(txtNombreAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAdmin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(20, 20, 20))
         );
@@ -174,6 +181,14 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         crearAdmin();
     }//GEN-LAST:event_btnAdminActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        
+        this.setVisible(false);
+        VistaSuperAdmin superAdmin = new VistaSuperAdmin(activo);
+        superAdmin.setVisible(true);
+        
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     
     private void crearAdmin(){
@@ -223,7 +238,7 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
     
     private void enlistarUsuariosSucursales() {
 
-        usuarios = usuarioDao.obtenerUsuarios();//obtiene los usuarios de la DB
+        usuarios = usuarioDao.obtenerUsuarios(1);//obtiene los usuarios de la DB
         sucursales = sucursalDao.obtenerSucursales();//obtiene las sucursales de la DB
 
         DefaultListModel<String> modelo1 = new DefaultListModel<>();

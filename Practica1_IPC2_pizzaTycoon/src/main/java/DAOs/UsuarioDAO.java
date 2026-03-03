@@ -18,9 +18,9 @@ public class UsuarioDAO {
     public void login(String nombre, int id, JFrame frame) {
 
         try (Connection conn = conexion.conectar()) {
-            
-            System.out.println("id: "+id);
-            System.out.println("Nombre: "+nombre);
+
+            System.out.println("id: " + id);
+            System.out.println("Nombre: " + nombre);
 
             String sql = "SELECT * FROM usuario WHERE id_usuario = ? AND nombre = ?";
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -48,12 +48,12 @@ public class UsuarioDAO {
                         break;
 
                 }
-                
+
                 mostrarVista(nuevoUsuario, frame);
 
-            }else{
-            JOptionPane.showMessageDialog(null,"No se encontro al usuario ", "ADVERTENSIA", 
-                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro al usuario ", "ADVERTENSIA",
+                        JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("NO SE ENCONTRO AL USUARIO");
             }
 
@@ -62,45 +62,55 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
-    
-    private void mostrarVista(Usuario nuevo, JFrame frame){//muestra la vista dependiendo del rol
-        
+
+    private void mostrarVista(Usuario nuevo, JFrame frame) {//muestra la vista dependiendo del rol
+
         switch (nuevo.getRol()) {
-                    case JUGADOR:
-                        VistaJugador juga = new VistaJugador(nuevo);
-                        juga.setVisible(true);
-                        break;
-                    case ADMIN_TIENDA:
-                        VistaAdmin admin = new VistaAdmin(nuevo);
-                        admin.setVisible(true);
-                        break;
-                    case SUPER_ADMIN:
-                        VistaSuperAdmin sup = new VistaSuperAdmin(nuevo);
-                        sup.setVisible(true);
-                        break;
+            case JUGADOR:
+                VistaJugador juga = new VistaJugador(nuevo);
+                juga.setVisible(true);
+                break;
+            case ADMIN_TIENDA:
+                VistaAdmin admin = new VistaAdmin(nuevo);
+                admin.setVisible(true);
+                break;
+            case SUPER_ADMIN:
+                VistaSuperAdmin sup = new VistaSuperAdmin(nuevo);
+                sup.setVisible(true);
+                break;
 
-                }
+        }
         frame.setVisible(false);
-    
-        System.out.println("USUARIO LOGUEADO: "+nuevo.getNombre() + ", rol: "+nuevo.getRol()+ ", sucursal: "+nuevo.getId_sucursal());
-        
-    }
-    
-    public ArrayList<Usuario> obtenerUsuarios(){
-        
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-    
-        try (Connection conn = conexion.conectar()) {
-            
 
-            String sql = "SELECT * FROM usuario";
-            PreparedStatement stm = conn.prepareStatement(sql);
+        System.out.println("USUARIO LOGUEADO: " + nuevo.getNombre() + ", rol: " + nuevo.getRol() + ", sucursal: " + nuevo.getId_sucursal());
+
+    }
+
+    public ArrayList<Usuario> obtenerUsuarios(int rol) {
+
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+
+        try (Connection conn = conexion.conectar()) {
+
+            String sql1 = "SELECT * FROM usuario";
+            String sql2 = "SELECT * FROM usuario WHERE id_rol = " + ROL_ADMIN;
+
+            PreparedStatement stm = conn.prepareStatement(sql1);
+
+            switch (rol) {//Dependiendo del parametro va a devolver una lista de todos los usuario o solo los admins
+                case 1:
+                    stm = conn.prepareStatement(sql1);
+                    break;
+                case 2:
+                    stm = conn.prepareStatement(sql2);
+                    break;
+            }
 
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {//si si encuentra algo
-               
-                Usuario nuevo = new Usuario(rs.getInt("id_usuario"),rs.getString("nombre"));
+
+                Usuario nuevo = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre"), rs.getInt("id_sucursal"));
                 usuarios.add(nuevo);
                 //guarda los usuarioa en una lista
 
@@ -110,12 +120,12 @@ public class UsuarioDAO {
             System.out.println("ERROR AL OBTENER USUARIOS");
             e.printStackTrace();
         }
-        
+
         return usuarios;
-        
+
     }
-    
-     public boolean crearAdmin(String nombre) {
+
+    public boolean crearAdmin(String nombre) {
 
         try (Connection conn = conexion.conectar()) {
 
@@ -133,7 +143,5 @@ public class UsuarioDAO {
         }
         return false;
     }
-    
-    
 
 }

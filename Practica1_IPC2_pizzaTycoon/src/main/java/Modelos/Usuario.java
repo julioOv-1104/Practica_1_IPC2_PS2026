@@ -8,9 +8,10 @@ public class Usuario {
     private int id;
     private int id_sucursal;
 
-    public Usuario(int id, String nombre) {
+    public Usuario(int id, String nombre, int id_sucursal) {
         this.nombre = nombre;
         this.id = id;
+        this.id_sucursal = id_sucursal;
     }
 
     public Usuario() {

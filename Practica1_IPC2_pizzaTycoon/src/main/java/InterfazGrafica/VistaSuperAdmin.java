@@ -212,7 +212,9 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSucursalActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        ModificarSucursalJF modificar = new ModificarSucursalJF(activo);
+        modificar.setVisible(true);
     }//GEN-LAST:event_btnModificarSucursalActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
