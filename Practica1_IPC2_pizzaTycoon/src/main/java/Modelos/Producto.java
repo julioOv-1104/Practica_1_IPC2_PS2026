@@ -6,6 +6,12 @@ public class Producto {
     private int id_producto;
     private String nombre_producto;
 
+    public Producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    }
+
+    
+
     public Producto(int id_producto, String nombre_producto) {
         this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
