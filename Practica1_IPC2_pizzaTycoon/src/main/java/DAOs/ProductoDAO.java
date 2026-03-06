@@ -65,7 +65,7 @@ public class ProductoDAO {
         try (Connection conn = conexion.conectar()) {
 
             //busca todos los productos que esten activos en una sucursal
-            String sql = "SELECT p.nombre_producto, sp.estado_activo "
+            String sql = "SELECT p.nombre_producto, sp.estado_activo, p.id_producto "
                     + "FROM sucursal_producto sp "
                     + "JOIN producto p ON sp.id_producto = p.id_producto "
                     + "WHERE sp.id_sucursal = ? AND estado_activo = true";
@@ -77,7 +77,7 @@ public class ProductoDAO {
 
             while (rs.next()) {//si si encuentra algo
 
-                Producto nuevo = new Producto(rs.getString("nombre_producto"));
+                Producto nuevo = new Producto(rs.getInt("id_producto"), rs.getString("nombre_producto"));
                 productos.add(nuevo);
                 //guarda los productos en una lista
 

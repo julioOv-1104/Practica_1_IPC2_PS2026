@@ -4,11 +4,11 @@ import Modelos.*;
 
 public class VistaJugador extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VistaUsuario
-     */
+    private Usuario activo = new Usuario();
+    
     public VistaJugador(Usuario activo) {
         initComponents();
+        this.activo = activo;
         this.lblJugafor.setText("Bienvenido Jugador: "+activo.getNombre());
     }
 
@@ -35,6 +35,11 @@ public class VistaJugador extends javax.swing.JFrame {
         lblJugafor.setText("Bienvenido Jugador: ");
 
         btnJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jugar.png"))); // NOI18N
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
 
         btnCambiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda-alt.png"))); // NOI18N
 
@@ -65,10 +70,12 @@ public class VistaJugador extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(165, 165, 165)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(btnJugar))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(btnJugar)))))
+                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(178, 178, 178)
                 .addComponent(btnCambiar)
@@ -87,7 +94,7 @@ public class VistaJugador extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(btnCambiar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(21, 21, 21))
         );
@@ -111,6 +118,12 @@ public class VistaJugador extends javax.swing.JFrame {
         LoginJF login = new LoginJF();
         login.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        this.setVisible(false);
+        PartidaJF partida = new PartidaJF(activo);
+        partida.setVisible(true);
+    }//GEN-LAST:event_btnJugarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

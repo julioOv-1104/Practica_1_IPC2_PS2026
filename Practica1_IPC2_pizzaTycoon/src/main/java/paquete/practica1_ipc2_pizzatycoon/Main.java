@@ -1,5 +1,5 @@
-
 package paquete.practica1_ipc2_pizzatycoon;
+
 import InterfazGrafica.*;
 
 public class Main {
@@ -9,5 +9,6 @@ public class Main {
         conexion.conectar();
         LoginJF login = new LoginJF();
         login.setVisible(true);
+
     }
 }

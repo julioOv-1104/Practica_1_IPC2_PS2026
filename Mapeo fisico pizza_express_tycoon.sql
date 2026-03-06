@@ -69,7 +69,7 @@ CREATE TABLE pedido (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_partida INT NOT NULL,
     tiempo_limite INT NOT NULL COMMENT 'Tiempo límite en segundos',
-    id_estado INT NOT NULL,
+    id_estado INT NOT NULL DEFAULT 1,
 
     CONSTRAINT fk_pedido_partida FOREIGN KEY (id_partida) REFERENCES partida(id_partida),
 
