@@ -1,10 +1,13 @@
 
 package InterfazGrafica;
+import DAOs.ReportesDAO;
 import Modelos.*;
+import java.util.ArrayList;
 
 public class VistaAdmin extends javax.swing.JFrame {
 
     private Usuario activo;
+    ReportesDAO reporteDao = new ReportesDAO();
     
     public VistaAdmin(Usuario activo) {
         initComponents();
@@ -53,8 +56,18 @@ public class VistaAdmin extends javax.swing.JFrame {
         });
 
         btnEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-alt.png"))); // NOI18N
+        btnEstadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadisticasActionPerformed(evt);
+            }
+        });
 
         btnRanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estrella-de-ranking.png"))); // NOI18N
+        btnRanking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRankingActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +183,27 @@ public class VistaAdmin extends javax.swing.JFrame {
         ModificarProductoJF modificar = new ModificarProductoJF(activo);
         modificar.setVisible(true);
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticasActionPerformed
+        
+        
+        ArrayList<Partida> lista = reporteDao.obtenerPartidasSucursal(1,activo.getId_sucursal());//se enlistan las partidas por sucursal
+        
+        ReportesSucursalJF reporte = new ReportesSucursalJF(lista, activo);
+        this.setVisible(false);
+        reporte.setVisible(true);
+    }//GEN-LAST:event_btnEstadisticasActionPerformed
+
+    private void btnRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRankingActionPerformed
+        
+        
+        ArrayList<Partida> lista = reporteDao.obtenerPartidasSucursal(2,activo.getId_sucursal());
+        //se enlistan las partidas por sucursal de los mejores jugadores
+        
+        ReportesRankingSucursalJF reporte = new ReportesRankingSucursalJF(lista, activo);
+        this.setVisible(false);
+        reporte.setVisible(true);
+    }//GEN-LAST:event_btnRankingActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

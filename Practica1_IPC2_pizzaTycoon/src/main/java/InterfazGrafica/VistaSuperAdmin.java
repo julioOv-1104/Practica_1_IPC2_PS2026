@@ -1,10 +1,13 @@
 package InterfazGrafica;
 
+import DAOs.ReportesDAO;
 import Modelos.*;
+import java.util.ArrayList;
 
 public class VistaSuperAdmin extends javax.swing.JFrame {
 
     private Usuario activo;
+    private ReportesDAO reportesDao = new ReportesDAO();
     
     public VistaSuperAdmin(Usuario activo) {
         initComponents();
@@ -64,8 +67,18 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         });
 
         btnGlobales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-alt.png"))); // NOI18N
+        btnGlobales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGlobalesActionPerformed(evt);
+            }
+        });
 
         btnRanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estrella-de-ranking.png"))); // NOI18N
+        btnRanking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRankingActionPerformed(evt);
+            }
+        });
 
         btnTiempoPreparacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/herramientas.png"))); // NOI18N
         btnTiempoPreparacion.addActionListener(new java.awt.event.ActionListener() {
@@ -168,9 +181,9 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
                                 .addComponent(jLabel5))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6))
                                 .addGap(6, 6, 6))))
                     .addComponent(btnRegistrarJugador))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,6 +243,24 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         ModificarTiemposJF tiempos = new ModificarTiemposJF(activo);
         tiempos.setVisible(true);
     }//GEN-LAST:event_btnTiempoPreparacionActionPerformed
+
+    private void btnGlobalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGlobalesActionPerformed
+        ArrayList<Partida> lista = reportesDao.obtenerPartidasGlobales(1);
+        //se enlistan todas las partidas
+        
+        ReportesGlobaleslJF reporte = new ReportesGlobaleslJF(lista, activo);
+        this.setVisible(false);
+        reporte.setVisible(true);
+    }//GEN-LAST:event_btnGlobalesActionPerformed
+
+    private void btnRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRankingActionPerformed
+        ArrayList<Partida> lista = reportesDao.obtenerPartidasGlobales(2);
+        //se enlistan todas las partidas por ranking
+        
+        ReportesRankingGlobaleslJF reporte = new ReportesRankingGlobaleslJF(lista, activo);
+        this.setVisible(false);
+        reporte.setVisible(true);
+    }//GEN-LAST:event_btnRankingActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

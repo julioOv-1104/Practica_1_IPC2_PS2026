@@ -28,7 +28,7 @@ public class PartidaDAO {
 
                 ConfigNivel nuevo = new ConfigNivel(rs.getInt("numero_nivel"), rs.getInt("tiempo_base"));
                 niveles.add(nuevo);
-                //guarda los sucursales en una lista
+                //guarda los tiempos en una lista
 
             }
 
@@ -225,5 +225,7 @@ public class PartidaDAO {
         }
 
     }
+     
+     
      
 }
