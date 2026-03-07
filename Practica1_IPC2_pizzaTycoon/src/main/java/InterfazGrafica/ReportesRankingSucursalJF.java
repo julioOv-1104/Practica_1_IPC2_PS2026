@@ -1,6 +1,7 @@
 package InterfazGrafica;
 
 import Modelos.*;
+import Servicios.ReportesService;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,6 +66,11 @@ public class ReportesRankingSucursalJF extends javax.swing.JFrame {
         });
 
         btnExportar.setText("Exportar Reportes");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,6 +125,11 @@ public class ReportesRankingSucursalJF extends javax.swing.JFrame {
         VistaAdmin admin = new VistaAdmin(activo);
         admin.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        ReportesService exportar = new ReportesService();
+        exportar.exportarCSV(listaPartidas, "reporte_ranking_sucursal.csv");
+    }//GEN-LAST:event_btnExportarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
