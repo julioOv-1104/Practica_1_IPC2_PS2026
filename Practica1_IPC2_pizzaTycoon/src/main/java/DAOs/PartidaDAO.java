@@ -185,4 +185,45 @@ public class PartidaDAO {
         
     }
 
+     public void terminarPartida(int id_partida, int puntajeTotal, int nivelAlcanzado) {
+         //cuando termina la partida guarda los resultados finales
+        
+        try (Connection conn = conexion.conectar()) {
+
+            String sql = "UPDATE partida SET puntaje_total = ? , nivel_alcanzado = ? WHERE id_partida = ?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, puntajeTotal);
+            stm.setInt(2, nivelAlcanzado);
+            stm.setInt(3, id_partida);
+
+            stm.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println("ERROR AL TERMINAR/ACTUALIZAR PARTIDA");
+            e.getMessage();
+        }
+        
+    }
+    
+     
+     public void regitrarHistorialPedido(int id_pedido, int id_estado) {
+
+        try (Connection conn = conexion.conectar()) {
+
+            String sql = "INSERT INTO historial_estado (id_pedido, id_estado) VALUES (?,?)";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id_pedido);
+            stm.setInt(2, id_estado);
+            
+
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR AL CREAR NUEVO HISTORIAL_ESTADO");
+            e.getMessage();
+        }
+
+    }
+     
 }

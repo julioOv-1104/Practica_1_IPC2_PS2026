@@ -1,6 +1,8 @@
 
 package InterfazGrafica;
+import DAOs.ProductoDAO;
 import Modelos.*;
+import javax.swing.JOptionPane;
 
 public class VistaJugador extends javax.swing.JFrame {
 
@@ -120,9 +122,17 @@ public class VistaJugador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        
+        ProductoDAO pro = new ProductoDAO();
+        if (pro.obtenerProductosPorSucursal(activo.getId_sucursal()).isEmpty()) {
+            JOptionPane.showMessageDialog(null, "La sucursal no tiene productos, elije otra sucursal",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }else{
+        
         this.setVisible(false);
         PartidaJF partida = new PartidaJF(activo);
         partida.setVisible(true);
+        }
     }//GEN-LAST:event_btnJugarActionPerformed
 
 

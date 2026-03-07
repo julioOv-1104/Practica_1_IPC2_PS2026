@@ -1,12 +1,10 @@
 package Servicios;
 
 import DAOs.*;
-import InterfazGrafica.PartidaJF;
 import Modelos.*;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class PartidaService {
 
@@ -26,10 +24,12 @@ public class PartidaService {
         Pedido pedidoNuevo = new Pedido();
         pedidoNuevo.setId_pedido(id_pedido);
         pedidoNuevo.setTiempo_limite(tiempo);
+        pedidoNuevo.setTiempoRestante(tiempo);
         pedidoNuevo.setId_partida(id_partida);
         pedidoNuevo.setProducto(productoPedido);
-        pedidoNuevo.setBoton(new JButton(pedidoNuevo.getProducto().getNombre_producto()));//crea un pedido como objeto
+        pedidoNuevo.setBoton(new JButton(pedidoNuevo.getProducto().getNombre_producto()+","+tiempo+"s"));//crea un pedido como objeto
         pedidoNuevo.iniciarEnfriamientoPedido();//inicia con el temporizador del pedido
+        partidaDao.regitrarHistorialPedido(id_pedido, 1);//registra el momento en el que se creó el pedido
 
          return pedidoNuevo;//muestra el boton que representa el pedido
 

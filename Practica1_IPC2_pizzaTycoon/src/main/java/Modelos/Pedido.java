@@ -1,19 +1,19 @@
 package Modelos;
 
 import DAOs.PartidaDAO;
-import InterfazGrafica.PartidaJF;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Pedido {
 
     private int id_pedido;
     private int tiempo_limite = 0;
+    private int tiempoRestante = 0;
     private int id_partida;
     private Producto producto;
     private int id_estado = 1;
     private JButton boton;
+    private Timer timerPedido;
 
     public int getId_pedido() {
         return id_pedido;
@@ -23,12 +23,12 @@ public class Pedido {
         this.id_pedido = id_pedido;
     }
 
-    public int getTiempo_limite() {
-        return tiempo_limite;
+    public int getTiempoRestante() {
+        return tiempoRestante;
     }
 
-    public void setTiempo_limite(int tiempo_limite) {
-        this.tiempo_limite = tiempo_limite;
+    public void setTiempoRestante(int tiempoRestante) {
+        this.tiempoRestante = tiempoRestante;
     }
 
     public int getId_partida() {
@@ -63,27 +63,37 @@ public class Pedido {
         this.boton = boton;
     }
 
-    private void controlarTiempo( ) {
-        
+    public int getTiempo_limite() {
+        return tiempo_limite;
+    }
+
+    public void setTiempo_limite(int tiempo_limite) {
+        this.tiempo_limite = tiempo_limite;
+    }
+
+    private void controlarTiempo() {
+
         PartidaDAO partidaDao = new PartidaDAO();
 
-        if (tiempo_limite > 0) {
-            tiempo_limite--;
+        if (tiempoRestante > 0) {
+            tiempoRestante--;
         } else {
 
             id_estado = 6;//si se acabó el tiempo lo marca como no entregado
             partidaDao.cambiarEstadoDePedido(id_estado, id_pedido);
         }
-        
-        
 
     }
 
-    public void iniciarEnfriamientoPedido( ) {
+    public void iniciarEnfriamientoPedido() {
 
-        Timer timerPedido = new Timer(1000, e -> controlarTiempo());//lleva el tiempo de la partida
+        timerPedido = new Timer(1000, e -> controlarTiempo());//lleva el tiempo de la partida
         timerPedido.start();
 
+    }
+    
+    public void terminarEnfriamiento(){
+    timerPedido.stop();
     }
 
 }

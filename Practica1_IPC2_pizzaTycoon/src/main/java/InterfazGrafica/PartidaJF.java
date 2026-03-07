@@ -4,6 +4,7 @@ import DAOs.PartidaDAO;
 import Modelos.*;
 import Servicios.*;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,14 +14,17 @@ public class PartidaJF extends javax.swing.JFrame {
     private Usuario activo = new Usuario();
     private PartidaDAO partidaDao = new PartidaDAO();
     private Partida partida;
+    private ArrayList<Pedido> listPedidos = new ArrayList();//listado en donde se almacenaran todos los pedidos activos
+    private Timer timerPartida;
+    private Timer timerPedidos;
 
-    private final int MAX_PEDIDOS = 3;
-    private final int TIEMPO_ENTRE_PEDIDO = 5000;
-    private int tiempoLimite = 70;//50segundos por partida
+    private final int MAX_PEDIDOS = 2;
+    private final int TIEMPO_ENTRE_PEDIDO = 3000;
+    private int tiempoLimite = 50;//120 segundos por partida
     private int puntajeTotal = 0;
     private int nivelActual = 1;
     private int id_partida;
-    private String[] estados = {"RECIBIDA","PREPARANDO","EN_HORNO","ENTREGADO","CANCELADA","NO_ENTREGADO"};
+    private String[] estados = {"RECIBIDA", "PREPARANDO", "EN_HORNO", "ENTREGADO", "CANCELADA", "NO_ENTREGADO"};
     private Pedido pedidoActivo = new Pedido();//el pedido con el que el usuario está trabajando
 
     private PartidaService servicioPartida = new PartidaService();
@@ -39,8 +43,8 @@ public class PartidaJF extends javax.swing.JFrame {
         this.id_partida = partidaDao.registrarPartida(activo);//crea una partida nueva y guarda su id
         this.partida = new Partida(id_partida, activo);
         panelPedidos.setLayout(new FlowLayout());
-        Timer timerPedidos = new Timer(TIEMPO_ENTRE_PEDIDO, e -> agregarPedido());//regula cada cuanto se genera un pedido
-        Timer timerPartida = new Timer(1000, e -> mostrarProgresoPartida());//lleva el tiempo de la partida
+        timerPedidos = new Timer(TIEMPO_ENTRE_PEDIDO, e -> agregarPedido());//regula cada cuanto se genera un pedido
+        timerPartida = new Timer(1000, e -> mostrarProgresoPartida());//lleva el tiempo de la partida
         timerPedidos.start();
         timerPartida.start();
     }
@@ -61,11 +65,8 @@ public class PartidaJF extends javax.swing.JFrame {
     private void mostrarPedido(Pedido pedido) {
 
         pedidoActivo = pedido;
-        
-        lblProducto.setText("Producto: " + pedido.getProducto().getNombre_producto());
-        
 
-        
+        lblProducto.setText("Producto: " + pedido.getProducto().getNombre_producto());
 
         //muestra la informacion del pedido en la partida
         lblProducto.setVisible(true);
@@ -76,7 +77,7 @@ public class PartidaJF extends javax.swing.JFrame {
         btnCancelar.setVisible(true);
         btnEntregar.setVisible(true);
         btnHornear.setVisible(true);
-        
+
         btnEntregar.setEnabled(false);
         btnHornear.setEnabled(false);
 
@@ -109,8 +110,6 @@ public class PartidaJF extends javax.swing.JFrame {
     public JPanel getPanelPedidos() {
         return panelPedidos;
     }
-    
-    
 
     private void mostrarProgresoPartida() {
 
@@ -118,24 +117,37 @@ public class PartidaJF extends javax.swing.JFrame {
         lblTiempo.setText("Tiempo restante: " + tiempoLimite);
         lblNivel.setText("Nivel actual: " + nivelActual);
         lblPuntos.setText("Puntos: " + puntajeTotal);
-        lblTiempoPedido.setText("Tiempo de pedido: "+pedidoActivo.getTiempo_limite());
-        lblEstado.setText("Estado: "+estados[pedidoActivo.getId_estado()-1]);
-        
+        lblTiempoPedido.setText("Tiempo de pedido: " + pedidoActivo.getTiempoRestante());
+        lblEstado.setText("Estado: " + estados[pedidoActivo.getId_estado() - 1]);
+
         int estadoActivo = pedidoActivo.getId_estado();
-        
+
         if (estadoActivo == 6) {//si no lo entregó a tiempo
-            
-            panelPedidos.remove(pedidoActivo.getBoton());
-            
-            JOptionPane.showMessageDialog(null,"No entregado: "+pedidoActivo.getProducto().getNombre_producto(), 
-                         "QUE MAL", JOptionPane.ERROR_MESSAGE);
-            
-            pedidoActivo = new Pedido();
-            
+
+            pedidoNoEntregado();
+
         }
-        
-        if (estadoActivo==4 || estadoActivo==5 || estadoActivo==6) {
+
+        if (estadoActivo == 4 || estadoActivo == 5 || estadoActivo == 6) {
             ocultarPartida();
+        }
+
+        verificarNivel();
+
+        if (tiempoLimite <= 0) {//si ya se acabó el tiempo
+            terminarPartida();
+        }
+
+    }
+
+    private void verificarNivel() {
+
+        if (puntajeTotal < 500) {
+            nivelActual = 1;
+        } else if (puntajeTotal < 1000) {
+            nivelActual = 2;
+        } else {
+            nivelActual = 3;
         }
 
     }
@@ -148,17 +160,14 @@ public class PartidaJF extends javax.swing.JFrame {
 
         Pedido pedido = servicioPartida.generarPedidos(activo.getId_sucursal(), nivelActual, id_partida);
 
+        listPedidos.add(pedido);//agrega el nuevo pedido a la lista
+
         pedido.getBoton().addActionListener(e -> {
             mostrarPedido(pedido);
             panelPedidos.revalidate();
             panelPedidos.repaint();
         });
 
-        /*pedido.addActionListener(e -> {
-            panelPedidos.remove(pedido);
-            panelPedidos.revalidate();
-            panelPedidos.repaint();
-        });*/
         panelPedidos.add(pedido.getBoton());
         panelPedidos.revalidate();
         panelPedidos.repaint();
@@ -205,6 +214,11 @@ public class PartidaJF extends javax.swing.JFrame {
         panelJuego.setBackground(new java.awt.Color(153, 153, 153));
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         lblPuntos.setForeground(new java.awt.Color(0, 0, 0));
         lblPuntos.setText("Puntos: ");
@@ -267,7 +281,7 @@ public class PartidaJF extends javax.swing.JFrame {
                         .addGap(88, 88, 88)
                         .addComponent(lblEstado))
                     .addComponent(lblOrden))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -365,55 +379,138 @@ public class PartidaJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrepararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrepararActionPerformed
-        
+
         partidaDao.cambiarEstadoDePedido(2, pedidoActivo.getId_pedido());
         //le setea al pedido activo el nuevo estado
         avanzarEstado();
-        
+
         btnHornear.setEnabled(true);
-        
-        
+
+
     }//GEN-LAST:event_btnPrepararActionPerformed
 
     private void btnHornearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHornearActionPerformed
-        
+
         partidaDao.cambiarEstadoDePedido(3, pedidoActivo.getId_pedido());
         //le setea al pedido activo el nuevo estado
         avanzarEstado();
-        
+
         btnEntregar.setEnabled(true);
-        
+
     }//GEN-LAST:event_btnHornearActionPerformed
 
     private void btnEntregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarActionPerformed
-         
-        partidaDao.cambiarEstadoDePedido(4, pedidoActivo.getId_pedido());
-        //le setea al pedido activo el nuevo estado en la BD
-        avanzarEstado();
-        
-        panelPedidos.remove(pedidoActivo.getBoton());
-        ocultarPartida();
-        JOptionPane.showMessageDialog(null,pedidoActivo.getProducto().getNombre_producto()+" Entregado", 
-                         "ENTREGADO", JOptionPane.PLAIN_MESSAGE);
-        
-        
+
+        entregarPedido();
+
+
     }//GEN-LAST:event_btnEntregarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        cancelarPedido();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        JOptionPane.showMessageDialog(null, "La partida terminara y se guardaran los puntos y nivel obtenidos",
+                "ADVERTENSIA", JOptionPane.WARNING_MESSAGE);
+        terminarPartida();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void entregarPedido() {
+
+        partidaDao.cambiarEstadoDePedido(4, pedidoActivo.getId_pedido());
+        //le setea al pedido activo el nuevo estado en la BD
+        avanzarEstado();
+
+        int puntos = 100;
+
+        puntajeTotal = puntajeTotal + puntos;//le suma 100 puntos por entregar el pedido
+
+        int tiempoBonificacion = (pedidoActivo.getTiempo_limite() / 2);
+
+        if (pedidoActivo.getTiempoRestante() >= tiempoBonificacion) {
+            puntajeTotal = puntajeTotal + 50;//si termino antes del 50% total del tiempo
+            puntos = puntos + 50;
+        }
+
+        panelPedidos.remove(pedidoActivo.getBoton());
+        listPedidos.remove(pedidoActivo);//saca el pedido entregado de la lista
+        ocultarPartida();
+        JOptionPane.showMessageDialog(null, pedidoActivo.getProducto().getNombre_producto() + " Entregado + " + puntos + " puntos",
+                "ENTREGADO", JOptionPane.PLAIN_MESSAGE);
         
+        pedidoActivo.terminarEnfriamiento();
+
+    }
+
+    private void cancelarPedido() {
+
         partidaDao.cambiarEstadoDePedido(5, pedidoActivo.getId_pedido());
         //le setea al pedido activo el nuevo estado en la BD
         avanzarEstado();
-        
-        panelPedidos.remove(pedidoActivo.getBoton());
-        ocultarPartida();
-        JOptionPane.showMessageDialog(null,pedidoActivo.getProducto().getNombre_producto()+" Cancelado", 
-                         "CANCELADO", JOptionPane.PLAIN_MESSAGE);
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void avanzarEstado(){
-    pedidoActivo.setId_estado(pedidoActivo.getId_estado() + 1);//avanza en el arreglo de estados para mostrarlo en pantalla
-    
+        puntajeTotal = puntajeTotal - 30;
+
+        panelPedidos.remove(pedidoActivo.getBoton());
+        listPedidos.remove(pedidoActivo);//saca el pedido cancelado de la lista
+        ocultarPartida();
+        JOptionPane.showMessageDialog(null, pedidoActivo.getProducto().getNombre_producto() + " Cancelado -30 puntos",
+                "CANCELADO", JOptionPane.PLAIN_MESSAGE);
+
+        pedidoActivo.terminarEnfriamiento();
+    }
+
+    private void pedidoNoEntregado() {
+
+        panelPedidos.remove(pedidoActivo.getBoton());
+
+        puntajeTotal = puntajeTotal - 50;
+        
+        registrarCambioEstado(pedidoActivo);
+
+        JOptionPane.showMessageDialog(null, "No entregado: " + pedidoActivo.getProducto().getNombre_producto() + " -50 puntos",
+                "QUE MAL", JOptionPane.ERROR_MESSAGE);
+
+        pedidoActivo.terminarEnfriamiento();
+        pedidoActivo = new Pedido();
+
+    }
+
+    private void avanzarEstado() {
+        pedidoActivo.setId_estado(pedidoActivo.getId_estado() + 1);//avanza en el arreglo de estados para mostrarlo en pantalla
+        registrarCambioEstado(pedidoActivo);
+
+    }
+
+    private void terminarPartida() {
+
+        for (Pedido pedido : listPedidos) {//recorre todos los pedidos pendientes y los marca como no entregados
+
+            pedido.setId_estado(6);
+            partidaDao.cambiarEstadoDePedido(pedido.getId_estado(), pedido.getId_pedido());
+            puntajeTotal = puntajeTotal - 50;
+            registrarCambioEstado(pedido);
+            pedido.terminarEnfriamiento();
+        }
+
+        partidaDao.terminarPartida(id_partida, puntajeTotal, nivelActual);//se guarda todo en la DB
+        JOptionPane.showMessageDialog(null, "Puntaje total: " + puntajeTotal + ", Nivel alcanzado: " + nivelActual,
+                "FIN DE LA PARTIDA", JOptionPane.PLAIN_MESSAGE);
+
+        timerPartida.stop();
+        timerPedidos.stop();
+
+        this.setVisible(false);
+        VistaJugador regresar = new VistaJugador(activo);
+        regresar.setVisible(true);
+
+    }
+
+    private void registrarCambioEstado(Pedido pedido) {//gurada en la BD los cambios de estado de los pedidos
+
+        partidaDao.regitrarHistorialPedido(pedido.getId_pedido(), pedido.getId_estado());
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
