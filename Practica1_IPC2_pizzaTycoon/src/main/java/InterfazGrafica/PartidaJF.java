@@ -18,9 +18,9 @@ public class PartidaJF extends javax.swing.JFrame {
     private Timer timerPartida;
     private Timer timerPedidos;
 
-    private final int MAX_PEDIDOS = 2;
-    private final int TIEMPO_ENTRE_PEDIDO = 3000;
-    private int tiempoLimite = 50;//120 segundos por partida
+    private final int MAX_PEDIDOS = 5;
+    private final int TIEMPO_ENTRE_PEDIDO = 3000;//se genera un pedido cada 3 segundos
+    private int tiempoLimite = 120;//120 segundos por partida
     private int puntajeTotal = 0;
     private int nivelActual = 1;
     private int id_partida;
