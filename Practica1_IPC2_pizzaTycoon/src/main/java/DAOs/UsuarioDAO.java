@@ -158,5 +158,25 @@ public class UsuarioDAO {
         }
         return false;
     }
+    
+    public boolean cambiarSucursal(int id_sucursal, String nombre){//cambia al jugador de sucursal
+    
+        try (Connection conn = conexion.conectar()) {
+
+            String sql = "UPDATE usuario SET id_sucursal = ? WHERE nombre = ?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id_sucursal);
+            stm.setString(2, nombre);
+
+            stm.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("ERROR AL CAMBIAR JUGADOR A SUCURSAL CON ID: " + id_sucursal);
+            e.getMessage();
+        }
+        return false;
+        
+    }
 
 }

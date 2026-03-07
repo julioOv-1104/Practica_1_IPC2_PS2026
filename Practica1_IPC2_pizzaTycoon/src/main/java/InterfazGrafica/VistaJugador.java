@@ -44,6 +44,11 @@ public class VistaJugador extends javax.swing.JFrame {
         });
 
         btnCambiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda-alt.png"))); // NOI18N
+        btnCambiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +139,13 @@ public class VistaJugador extends javax.swing.JFrame {
         partida.setVisible(true);
         }
     }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
+        
+        this.setVisible(false);
+        CambiarSucursalJF cambiar = new CambiarSucursalJF(activo);
+        cambiar.setVisible(true);
+    }//GEN-LAST:event_btnCambiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
