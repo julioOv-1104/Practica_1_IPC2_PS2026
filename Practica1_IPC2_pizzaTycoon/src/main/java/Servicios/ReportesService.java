@@ -13,11 +13,11 @@ public class ReportesService {
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
 
-        // Encabezados
+        // Encabezados del documento
         writer.write("NombreJugador,PuntajeTotal, NivelAlcanzado");
         writer.newLine();
 
-        // Datos
+        // Datos obtenidos de la DB
         for (Partida p : partidas) {
 
             String linea = p.getUsuario().getNombre()+ "," +
