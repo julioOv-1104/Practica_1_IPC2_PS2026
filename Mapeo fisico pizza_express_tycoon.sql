@@ -122,6 +122,7 @@ INSERT INTO config_nivel (numero_nivel, tiempo_base) VALUES
 INSERT INTO sucursal (nombre_sucursal) VALUES ('Sucursal Xela');
 
 INSERT INTO usuario (nombre, id_rol, id_sucursal) VALUES 
-('Julio',1, null),
-('Allan',2,1),
-('Ovalle',3,null);
+('Ovalle',3,null),
+('Julio',1, 1),
+('Allan',2,1);
+
