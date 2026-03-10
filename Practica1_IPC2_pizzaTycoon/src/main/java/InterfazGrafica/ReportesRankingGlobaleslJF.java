@@ -1,6 +1,7 @@
 package InterfazGrafica;
 
 import Modelos.*;
+import Servicios.ReportesService;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +19,12 @@ public class ReportesRankingGlobaleslJF extends javax.swing.JFrame {
         modelo.setColumnIdentifiers(columnas);
         tablaPartida.setModel(modelo);
         llenarTablaReportes();
+        
+        this.setTitle("Ranking Global");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     private void llenarTablaReportes() {
@@ -37,6 +44,7 @@ public class ReportesRankingGlobaleslJF extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPartida = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +71,13 @@ public class ReportesRankingGlobaleslJF extends javax.swing.JFrame {
             }
         });
 
+        btnExportar.setText("Exportar Reportes");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,12 +88,15 @@ public class ReportesRankingGlobaleslJF extends javax.swing.JFrame {
                         .addGap(130, 130, 130)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(btnRegresar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jLabel1)))
                 .addContainerGap(87, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btnRegresar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExportar)
+                .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,9 +105,15 @@ public class ReportesRankingGlobaleslJF extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRegresar)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegresar)
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExportar)
+                        .addGap(30, 30, 30))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,8 +136,14 @@ public class ReportesRankingGlobaleslJF extends javax.swing.JFrame {
         admin.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        ReportesService exportar = new ReportesService();
+        exportar.exportarCSV(listaPartidas, "reporte_ranking_global.csv");
+    }//GEN-LAST:event_btnExportarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

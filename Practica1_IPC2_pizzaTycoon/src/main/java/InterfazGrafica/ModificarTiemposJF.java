@@ -19,6 +19,12 @@ public class ModificarTiemposJF extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         enlistarNiveles();
+        
+        this.setTitle("Configuracion de partida");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
   

@@ -5,14 +5,15 @@ import Servicios.ReportesService;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class ReportesSucursalJF extends javax.swing.JFrame {
+public class HistorialJugadorJF extends javax.swing.JFrame {
 
     private Usuario activo = new Usuario();
     private ArrayList<Partida> listaPartidas = new ArrayList<>();
     private DefaultTableModel modelo = new DefaultTableModel();
-    private String columnas[] = {"Nombre", "Puntaje total", "Nivel alcanzado"};
+    private String columnas[] = {"Sucursal", "Puntaje total", "Nivel alcanzado"};
 
-    public ReportesSucursalJF(ArrayList<Partida> listaPartidas,Usuario activo) {
+    public HistorialJugadorJF(ArrayList<Partida> listaPartidas,Usuario activo) {
+
         this.listaPartidas = listaPartidas;
         this.activo = activo;
         initComponents();
@@ -20,11 +21,9 @@ public class ReportesSucursalJF extends javax.swing.JFrame {
         tablaPartida.setModel(modelo);
         llenarTablaReportes();
         
-        this.setTitle("Reportes de Sucursal");
+        this.setTitle("Historial de jugador");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        
-        
     }
 
     private void llenarTablaReportes() {
@@ -128,13 +127,13 @@ public class ReportesSucursalJF extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-        VistaAdmin admin = new VistaAdmin(activo);
-        admin.setVisible(true);
+        VistaJugador jugador = new VistaJugador(activo);
+        jugador.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         ReportesService exportar = new ReportesService();
-        exportar.exportarCSV(listaPartidas, "reporte_sucursal.csv");
+        exportar.exportarCSV(listaPartidas, "historial_jugador"+activo.getNombre()+".csv");
     }//GEN-LAST:event_btnExportarActionPerformed
 
 

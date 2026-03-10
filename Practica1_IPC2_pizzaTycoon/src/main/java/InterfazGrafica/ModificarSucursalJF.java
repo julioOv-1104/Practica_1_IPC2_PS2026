@@ -20,6 +20,12 @@ public class ModificarSucursalJF extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         enlistarUsuariosSucursales();
+        
+        this.setTitle("Modificar Sucursal");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
 
     }
 

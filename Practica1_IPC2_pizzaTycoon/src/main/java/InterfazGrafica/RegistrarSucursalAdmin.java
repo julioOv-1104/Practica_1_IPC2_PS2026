@@ -19,6 +19,12 @@ public class RegistrarSucursalAdmin extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         enlistarUsuariosSucursales();
+        
+        this.setTitle("Registrar Sucursal y Admin");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
 
     }
 

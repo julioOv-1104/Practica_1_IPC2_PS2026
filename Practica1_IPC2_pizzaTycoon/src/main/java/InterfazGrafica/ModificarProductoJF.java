@@ -18,6 +18,12 @@ public class ModificarProductoJF extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         enlistarProductos();
+        
+        this.setTitle("Modificar Productos");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**

@@ -8,8 +8,13 @@ public class LoginJF extends javax.swing.JFrame {
     UsuarioDAO usuarioDao;
 
     public LoginJF() {
+        
+        
         usuarioDao = new UsuarioDAO();
         initComponents();
+        this.setTitle("Iniciar Sesion");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**

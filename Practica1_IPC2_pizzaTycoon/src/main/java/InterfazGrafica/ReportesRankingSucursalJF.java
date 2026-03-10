@@ -19,6 +19,12 @@ public class ReportesRankingSucursalJF extends javax.swing.JFrame {
         modelo.setColumnIdentifiers(columnas);
         tablaPartida.setModel(modelo);
         llenarTablaReportes();
+        
+        this.setTitle("Ranking de Sucursal");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     private void llenarTablaReportes() {

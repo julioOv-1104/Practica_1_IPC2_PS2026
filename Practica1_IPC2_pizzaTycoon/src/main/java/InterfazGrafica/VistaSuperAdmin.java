@@ -13,6 +13,12 @@ public class VistaSuperAdmin extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         this.lblSuperAdmin.setText("Bienvenido Super Administrador: " + activo.getNombre());
+        
+        this.setTitle("Super Administrador");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**

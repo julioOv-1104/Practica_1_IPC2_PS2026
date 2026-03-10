@@ -16,6 +16,12 @@ public class CrearProductoJF extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         enlistarProductos();
+        
+        this.setTitle("Crear producto");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**

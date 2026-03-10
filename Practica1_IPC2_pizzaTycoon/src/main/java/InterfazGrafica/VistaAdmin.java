@@ -13,6 +13,12 @@ public class VistaAdmin extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         this.lblAdmin.setText("Bienvenido Administrador: "+ activo.getNombre());
+        
+        this.setTitle("Administrador de Sucursal");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**

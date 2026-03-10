@@ -32,7 +32,13 @@ public class PartidaJF extends javax.swing.JFrame {
     public PartidaJF(Usuario activo) {
         initComponents();
         iniciarPartida(activo);
-        //botonDePrueba();
+        
+        this.setTitle("Pizza Express Tycoon");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
+        
     }
 
     private void iniciarPartida(Usuario activo) {

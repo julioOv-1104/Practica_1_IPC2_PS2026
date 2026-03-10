@@ -106,4 +106,37 @@ public class ReportesDAO {
 
     }
 
+    
+    public ArrayList<Partida> obtenerPartidasJugador(int id) {
+
+        ArrayList<Partida> partidas = new ArrayList<>();
+
+        try (Connection conn = conexion.conectar()) {
+
+            String sql = "SELECT s.nombre_sucursal, p.puntaje_total, p.nivel_alcanzado "
+                    + "FROM partida p JOIN sucursal s "
+                    + "ON p.id_sucursal = s.id_sucursal WHERE p.id_usuario = ?";
+
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {//si si encuentra algo
+
+                Partida nueva = new Partida(rs.getString("nombre_sucursal"), rs.getInt("puntaje_total"), rs.getInt("nivel_alcanzado"));
+                partidas.add(nueva);
+                //guarda las partidas en una lista
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL OBTENER PARTIDAS DE JUGADOR");
+            e.printStackTrace();
+        }
+
+        return partidas;
+
+    }
+    
 }

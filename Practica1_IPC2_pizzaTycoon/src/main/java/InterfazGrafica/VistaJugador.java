@@ -1,17 +1,26 @@
 
 package InterfazGrafica;
 import DAOs.ProductoDAO;
+import DAOs.ReportesDAO;
 import Modelos.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VistaJugador extends javax.swing.JFrame {
 
     private Usuario activo = new Usuario();
+    private ReportesDAO reporteDao = new ReportesDAO();
     
     public VistaJugador(Usuario activo) {
         initComponents();
         this.activo = activo;
         this.lblJugafor.setText("Bienvenido Jugador: "+activo.getNombre());
+        
+        this.setTitle("Jugador");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**
@@ -30,6 +39,7 @@ public class VistaJugador extends javax.swing.JFrame {
         btnCerrarSesion = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnHistorial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +71,13 @@ public class VistaJugador extends javax.swing.JFrame {
 
         jLabel4.setText("Cambiar Sucursal");
 
+        btnHistorial.setText("Historial de partidas");
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -70,8 +87,11 @@ public class VistaJugador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCerrarSesion)
-                            .addComponent(lblJugafor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblJugafor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCerrarSesion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                                .addComponent(btnHistorial))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(jLabel3))
@@ -82,7 +102,7 @@ public class VistaJugador extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addComponent(btnJugar)))))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(178, 178, 178)
                 .addComponent(btnCambiar)
@@ -101,9 +121,14 @@ public class VistaJugador extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(btnCambiar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCerrarSesion)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnHistorial)
+                        .addGap(30, 30, 30))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,10 +172,20 @@ public class VistaJugador extends javax.swing.JFrame {
         cambiar.setVisible(true);
     }//GEN-LAST:event_btnCambiarActionPerformed
 
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        ArrayList<Partida> lista = reporteDao.obtenerPartidasJugador(activo.getId());
+        //se enlistan las partidas por usuario
+        
+        HistorialJugadorJF reporte = new HistorialJugadorJF(lista, activo);
+        this.setVisible(false);
+        reporte.setVisible(true);
+    }//GEN-LAST:event_btnHistorialActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiar;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnJugar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

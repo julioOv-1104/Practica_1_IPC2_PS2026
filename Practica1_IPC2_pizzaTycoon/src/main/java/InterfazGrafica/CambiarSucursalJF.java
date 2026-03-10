@@ -21,6 +21,10 @@ public class CambiarSucursalJF extends javax.swing.JFrame {
         this.activo = activo;
         mostrarSucursal();
         enlistarSucursales();
+        
+        this.setTitle("Cambiar de Sucursal");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

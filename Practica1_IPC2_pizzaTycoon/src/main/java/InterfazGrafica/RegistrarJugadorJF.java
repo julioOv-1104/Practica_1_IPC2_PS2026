@@ -19,6 +19,12 @@ public class RegistrarJugadorJF extends javax.swing.JFrame {
         initComponents();
         this.activo = activo;
         enlistarUsuariosSucursales();
+        
+        this.setTitle("Registrar Jugador");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**
